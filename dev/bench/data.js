@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1583993731119,
+  "lastUpdate": 1583994014089,
   "repoUrl": "https://github.com/jkelleyrtp/benchmark_kdtree",
   "entries": {
     "Rust Benchmark": [
@@ -95,6 +95,60 @@ window.BENCHMARK_DATA = {
             "name": "bench_single_loop_times_for_1000_node_tree",
             "value": 207,
             "range": "+/- 88",
+            "unit": "ns/iter"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "jkelleyrtp@gmail.com",
+            "name": "Jonathan Kelley",
+            "username": "jkelleyrtp"
+          },
+          "committer": {
+            "email": "jkelleyrtp@gmail.com",
+            "name": "Jonathan Kelley",
+            "username": "jkelleyrtp"
+          },
+          "distinct": true,
+          "id": "f082175aa03a49f0907d395bb70fd79702c418f0",
+          "message": "Change branch",
+          "timestamp": "2020-03-12T02:18:34-04:00",
+          "tree_id": "b1bde7f31e33762e29147f29e2755d293c8bffd5",
+          "url": "https://github.com/jkelleyrtp/benchmark_kdtree/commit/f082175aa03a49f0907d395bb70fd79702c418f0"
+        },
+        "date": 1583994013752,
+        "tool": "cargo",
+        "benches": [
+          {
+            "name": "bench_adding_same_node_to_1000_tree",
+            "value": 43,
+            "range": "+/- 15",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "bench_creating_1000_node_tree",
+            "value": 105006,
+            "range": "+/- 26,157",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "bench_incrementally_building_the_1000_tree",
+            "value": 194694,
+            "range": "+/- 43,600",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "bench_single_loop_times_for_1000_node_tree",
+            "value": 208,
+            "range": "+/- 124",
+            "unit": "ns/iter"
+          },
+          {
+            "name": "bench_single_loop_times_for_1000_node_tree_within",
+            "value": 331,
+            "range": "+/- 171",
             "unit": "ns/iter"
           }
         ]
