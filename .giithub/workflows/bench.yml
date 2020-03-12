@@ -1,2 +1,0 @@
-- name: Continuous Benchmark
-  uses: rhysd/github-action-benchmark@v1.7.1
