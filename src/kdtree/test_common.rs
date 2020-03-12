@@ -52,10 +52,7 @@ pub struct Point1WithId {
 
 impl Point1WithId {
     pub fn new(id: i32, x: f64) -> Point1WithId {
-        Point1WithId {
-            dims: [x],
-            id: id,
-        }
+        Point1WithId { dims: [x], id: id }
     }
 }
 
@@ -64,4 +61,13 @@ impl KdtreePointTrait for Point1WithId {
     fn dims(&self) -> &[f64] {
         return &self.dims;
     }
+}
+
+pub fn euclidean(a: &[f64], b: &[f64]) -> f64 {
+    debug_assert!(a.len() == b.len());
+    a.iter()
+        .zip(b.iter())
+        .map(|(x1, x2)| (*x1 - *x2).powi(2))
+        .fold(0f64, |acc, add| acc + add)
+        .sqrt()
 }

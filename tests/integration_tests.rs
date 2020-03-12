@@ -3,6 +3,7 @@ extern crate rand;
 
 use rand::Rng;
 
+use kdtree::kdtree::distance::squared_euclidean;
 use kdtree::kdtree::test_common::*;
 use kdtree::kdtree::KdtreePointTrait;
 
@@ -100,5 +101,56 @@ fn test_incrementally_build_tree_against_built_at_once() {
             tree_built_at_once.nearest_search(&p).id,
             tree_built_incrementally.nearest_search(&p).id
         );
+    }
+}
+
+#[test]
+fn test_within_1000_random_points() {
+    let point_count = 100usize;
+
+    // Query Point
+    let p = Point3WithId::new(0i32, 0.0, 0.0, 0.0);
+
+    {
+        // Build the points in the tree
+        let mut points = Vec::new();
+        for i in 0..point_count {
+            points.push(Point3WithId::new(i as i32, i as f64, 0.0, 0.0));
+        }
+        let mykdtree = kdtree::kdtree::Kdtree::new(&mut points.clone());
+
+        // Linear mapping of points
+        for i in 0..point_count {
+            let found_points = mykdtree.within(&p, (i * i) as f64 + 0.1, squared_euclidean);
+            assert_eq!(found_points.len(), i + 1);
+        }
+    }
+
+    {
+        let mut points = Vec::new();
+        for i in 0..point_count {
+            points.push(Point3WithId::new(i as i32, i as f64, i as f64, 0.0));
+        }
+        let mykdtree = kdtree::kdtree::Kdtree::new(&mut points.clone());
+
+        // flat diagonal mapping of points
+        for i in 0..point_count {
+            let found_points = mykdtree.within(&p, i as f64 * 2.0f64.sqrt() + 0.1, euclidean);
+            assert_eq!(found_points.len(), i + 1);
+        }
+    }
+
+    {
+        let mut points = Vec::new();
+        for i in 0..point_count {
+            points.push(Point3WithId::new(i as i32, i as f64, i as f64, i as f64));
+        }
+        let mykdtree = kdtree::kdtree::Kdtree::new(&mut points.clone());
+
+        // flat diagonal mapping of points
+        for i in 0..point_count {
+            let found_points = mykdtree.within(&p, i as f64 * 3.0f64.sqrt() + 0.1, euclidean);
+            assert_eq!(found_points.len(), i + 1);
+        }
     }
 }
