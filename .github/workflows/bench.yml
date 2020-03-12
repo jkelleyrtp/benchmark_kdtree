@@ -13,8 +13,21 @@ jobs:
         with:
           persist-credentials: false
       - run: rustup toolchain update nightly && rustup default nightly
+
       - name: Run benchmark
         run: cargo +nightly bench | tee output.txt
+
+      - name: Cache cargo registry
+        uses: actions/cache@v1
+        with:
+          path: ~/.cargo/registry
+          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+      - name: Cache cargo build
+        uses: actions/cache@v1
+        with:
+          path: target
+          key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('**/Cargo.lock') }}
+
       - name: Store benchmark result
         # uses: rhysd/github-action-benchmark@v1
         uses: jasonwilliams/github-action-benchmark@v1
